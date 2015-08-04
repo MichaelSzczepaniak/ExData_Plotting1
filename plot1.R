@@ -1,6 +1,7 @@
-library(dplyr)
-
-
+## Reads in the data to generate plot
+## fileName - location of the data file, e.g. "household_power_consumption.txt"
+## startRow - first row of the data file to be read
+## readCount - number of rows of the data file to be read
 readHouseholdPowerData <-
     function(fileName, startRow, readCount) {
         colClasses <- c("character", "character", rep("numeric", 7))

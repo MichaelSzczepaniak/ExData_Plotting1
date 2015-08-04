@@ -45,6 +45,10 @@ When loading the dataset into R, please consider the following:
 calculate a rough estimate of how much memory the dataset will require
 in memory before reading into R. Make sure your computer has enough
 memory (most modern computers should be fine).
+  - (2,076,000 rows)(9 columns) = 18,684,000 numerics
+  - (18,684,000 numerics) * (8 bytes / numeric ) = 149,472,000 bytes
+  - (149,472,000 bytes) / (1,048,576 bytes / Mb) ~ **143 Mb (approximate memory required)**
+  - I have **16 Gb** of in both my work systems: **more than enough**
 
 * We will only be using data from the dates 2007-02-01 and
 2007-02-02. One alternative is to read the data from just those dates

@@ -11,7 +11,7 @@ readHouseholdPowerData <-
                                      colClasses = "character",
                                      header = FALSE,
                                      stringsAsFactors = FALSE)[1, ]
-                          )
+        )
         data <- read.table(con, header = TRUE, sep = ";",
                            colClasses = colClasses,
                            skip = (startRow - 1), nrows = readCount,
@@ -29,9 +29,14 @@ data <- readHouseholdPowerData(fileName = "household_power_consumption.txt",
 dtFormat <- "%d/%m/%Y %H:%M:%S"
 # dplyr mutate doesn' support POSIXlt, so use base R method
 data$DateTime <- strptime(paste(data$Date, data$Time), dtFormat)
-
-with(data, plot(DateTime, Global_active_power, type = "n",
-                xlab = "", ylab = "Global Active Power (kilowatts)"))
-with(data, lines(DateTime, Global_active_power))
-dev.copy(png, file = "plot2.png", width = 480, height = 480, units = "px")
+# write directly to the png device (bypassing window): fix legend trunc'n:
+# http://stackoverflow.com/questions/9400194/legend-truncated-when-saving-as-pdf-using-saveplot
+png(file = "plot3.png", width = 480, height = 480, units = "px")
+with(data, plot(DateTime, Sub_metering_1, type = "n",
+                xlab = "", ylab = "Energy sub metering"))
+with(data, lines(DateTime, Sub_metering_1, col = "black"))
+with(data, lines(DateTime, Sub_metering_2, col = "red"))
+with(data, lines(DateTime, Sub_metering_3, col = "blue"))
+legend("topright", lty = 1, col = c("black", "red", "blue"),
+       legend = c(names(data[7]), names(data[8]), names(data[9])))
 dev.off()

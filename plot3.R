@@ -22,21 +22,21 @@ readHouseholdPowerData <-
         return(data)
     }
 
-# Read just the data from the data 2007-02-01 and 2007-02-02. This data starts
-# at row 66638 and continue for 2880 records
+# Read data for just 2007-02-01 and 2007-02-02. This data starts at row 66638
+# and continues for 2880 records. See comments in plot1.R for details.
 data <- readHouseholdPowerData(fileName = "household_power_consumption.txt",
                                startRow = 66638, readCount = 2880)
 dtFormat <- "%d/%m/%Y %H:%M:%S"
 # dplyr mutate doesn' support POSIXlt, so use base R method
-data$DateTime <- strptime(paste(data$Date, data$Time), dtFormat)
-# write directly to the png device (bypassing window): fix legend trunc'n:
+data$datetime <- strptime(paste(data$Date, data$Time), dtFormat)
+# write directly to the png device (bypassing window) to fix legend trunc'n:
 # http://stackoverflow.com/questions/9400194/legend-truncated-when-saving-as-pdf-using-saveplot
 png(file = "plot3.png", width = 480, height = 480, units = "px")
-with(data, plot(DateTime, Sub_metering_1, type = "n",
+with(data, plot(datetime, Sub_metering_1, type = "n",
                 xlab = "", ylab = "Energy sub metering"))
-with(data, lines(DateTime, Sub_metering_1, col = "black"))
-with(data, lines(DateTime, Sub_metering_2, col = "red"))
-with(data, lines(DateTime, Sub_metering_3, col = "blue"))
+with(data, lines(datetime, Sub_metering_1, col = "black"))
+with(data, lines(datetime, Sub_metering_2, col = "red"))
+with(data, lines(datetime, Sub_metering_3, col = "blue"))
 legend("topright", lty = 1, col = c("black", "red", "blue"),
        legend = c(names(data[7]), names(data[8]), names(data[9])))
 dev.off()

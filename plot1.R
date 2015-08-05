@@ -18,12 +18,22 @@ readHouseholdPowerData <-
         return(data)
     }
 
-# Read just the data from the data 2007-02-01 and 2007-02-02. This data starts
-# at row 66638 and continue for 2880 records
+# Read just the data from 2007-02-01 and 2007-02-02. This data starts at
+# row 66638 and continues for 2880 records. The values 66638 and 2280 were
+# obtained by inspecting the data using Notepad ++ but a better way would be
+# to do the following from the command line:
+# day1 <- grep("^1/2/2007", raw) # need ^ to eliminate things like 11/2/2007
+# day1[1]
+# [1] 66638
+# day2 <- grep("^2/2/2007", raw) # need ^ to eliminate things like 12/2/2007
+# length(day1) + length(day2)
+# [1] 2880
 data <- readHouseholdPowerData(fileName = "household_power_consumption.txt",
                                startRow = 66638, readCount = 2880)
+# create/write output png. Default size is 480 x 480 pixels, but be explicit
+png(file = "plot1.png", width = 480, height = 480, units = "px")
 hist(data$Global_active_power, main = "Global Active Power",
      col = "red", xlab = "Global Active Power (kilowatts)")
-# create/write output png. Default size is 480 x 480 pixels, but be explicit
-dev.copy(png, file = "plot1.png", width = 480, height = 480, units = "px")
+# If you write to screen device, use next line to copy it to png file.
+#dev.copy(png, file = "plot1.png", width = 480, height = 480, units = "px")
 dev.off()

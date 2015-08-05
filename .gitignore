@@ -4,6 +4,8 @@ figure/
 *.odt
 # push up the data once to have it archived, then ignore
 *.zip
+# preface file just used to check stuff with diff: no need to save
+diff*
 # no need to push up the large data file
 household_power_consumption.txt
 *.RData

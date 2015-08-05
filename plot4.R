@@ -22,8 +22,8 @@ readHouseholdPowerData <-
         return(data)
     }
 
-# Read just the data from the data 2007-02-01 and 2007-02-02. This data starts
-# at row 66638 and continue for 2880 records
+# Read data for just 2007-02-01 and 2007-02-02. This data starts at row 66638
+# and continues for 2880 records. See comments in plot1.R for details.
 data <- readHouseholdPowerData(fileName = "household_power_consumption.txt",
                                startRow = 66638, readCount = 2880)
 dtFormat <- "%d/%m/%Y %H:%M:%S"

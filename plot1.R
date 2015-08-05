@@ -22,6 +22,7 @@ readHouseholdPowerData <-
 # row 66638 and continues for 2880 records. The values 66638 and 2280 were
 # obtained by inspecting the data using Notepad ++ but a better way would be
 # to do the following from the command line:
+# raw <- readLines("household_power_consumption.txt") # took ~10 sec's on my pc
 # day1 <- grep("^1/2/2007", raw) # need ^ to eliminate things like 11/2/2007
 # day1[1]
 # [1] 66638

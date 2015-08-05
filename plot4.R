@@ -27,23 +27,26 @@ readHouseholdPowerData <-
 data <- readHouseholdPowerData(fileName = "household_power_consumption.txt",
                                startRow = 66638, readCount = 2880)
 dtFormat <- "%d/%m/%Y %H:%M:%S"
-data$DateTime <- strptime(paste(data$Date, data$Time), dtFormat) # add date-time
+data$datetime <- strptime(paste(data$Date, data$Time), dtFormat) # add date-time
 png(file = "plot4.png", width = 480, height = 480, units = "px")
 par(mfcol = c(2, 2))  # set up 2 x 2 grid of charts
 with(data, {
     # build top-left chart 1st: similar to plot2.R
-    plot(DateTime, Global_active_power, type = "l",
+    plot(datetime, Global_active_power, type = "l",
          xlab = "", ylab = "Global Active Power")
     # build bottom-left chart 2nd: similar to plot3.R
-    plot(DateTime, Sub_metering_1, type = "l", col = "black",
+    plot(datetime, Sub_metering_1, type = "l", col = "black",
          xlab = "", ylab = "Energy sub metering")
-    lines(DateTime, Sub_metering_2, col = "red")
-    lines(DateTime, Sub_metering_3, col = "blue")
+    lines(datetime, Sub_metering_2, col = "red")
+    lines(datetime, Sub_metering_3, col = "blue")
     # use bty = "n" to remove box around legend
     legend("topright", lty = 1, col = c("black", "red", "blue"), bty = "n",
            legend = c(names(data[7]), names(data[8]), names(data[9])))
-    # build top-right chart 3rd
-    
+    # build top-right chart 3rd: voltage vs. time
+    plot(datetime, Voltage, type = "l", xlab = "datetime", ylab = "Voltage")
+    # build bottom-right chart last: Global Reactive Power vs. time
+    plot(datetime, Global_reactive_power, type = "l",
+         xlab = names(data[10]), ylab = names(data[4]))
 })
 
 dev.off()

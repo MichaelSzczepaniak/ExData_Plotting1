@@ -3,7 +3,7 @@ figure/
 # odt is my copy of the assignement
 *.odt
 # push up the data once to have it archived, then ignore
-#*.zip
+*.zip
 # no need to push up the large data file
 household_power_consumption.txt
 *.RData
